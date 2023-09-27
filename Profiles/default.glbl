@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalVariableEntities>
+   <description></description>
+   <name>default</name>
+   <tag></tag>
+   <defaultProfile>true</defaultProfile>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'https://katalon-demo-cura.herokuapp.com/'</initValue>
+      <name>URL</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'Test Suites/TS DDT/Test Suite Collection 001'</initValue>
+      <name>TEST_SUITE_COLLECTION_NAME</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'Data Files/DF001'</initValue>
+      <name>TEST_DATAFILE_NAME</name>
+   </GlobalVariableEntity>
+</GlobalVariableEntities>

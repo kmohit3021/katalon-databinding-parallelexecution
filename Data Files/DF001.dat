@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataFileEntity>
+   <description></description>
+   <name>DF001</name>
+   <tag></tag>
+   <connectionProperties/>
+   <containsHeaders>true</containsHeaders>
+   <csvSeperator></csvSeperator>
+   <dataFileGUID>6b6b80aa-3879-44da-8da4-56837192b3a8</dataFileGUID>
+   <dataSourceUrl></dataSourceUrl>
+   <driver>InternalData</driver>
+   <data>Katalonuser1 Katalonpass1</data>
+   <data>Katalonuser2 Katalonpass2</data>
+   <data>Katalonuser3 Katalonpass3</data>
+   <data>Katalonuser4 Katalonpass4</data>
+   <data>Katalonuser5 Katalonpass5</data>
+   <data>Katalonuser6 Katalonpass6</data>
+   <data>Katalonuser7 Katalonpass7</data>
+   <data>Katalonuser8 Katalonpass8</data>
+   <data>Katalonuser9 Katalonpass9</data>
+   <data>Katalonuser10 Katalonpass10</data>
+   <internalDataColumns>
+      <columnIndex>0</columnIndex>
+      <name>username</name>
+      <size>10</size>
+   </internalDataColumns>
+   <internalDataColumns>
+      <columnIndex>1</columnIndex>
+      <name>password</name>
+      <size>10</size>
+   </internalDataColumns>
+   <isInternalPath>false</isInternalPath>
+   <query></query>
+   <secureUserAccount>false</secureUserAccount>
+   <sheetName></sheetName>
+   <usingGlobalDBSetting>false</usingGlobalDBSetting>
+</DataFileEntity>
