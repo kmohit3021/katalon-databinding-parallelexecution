@@ -17,11 +17,24 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.buildDataBindingParallelExecution'(GlobalVariable.TEST_SUITE_COLLECTION_NAME)
+WebUI.openBrowser('')
 
-CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.addDataIntoInternalDataFile'(GlobalVariable.TEST_SUITE_COLLECTION_NAME, 
-    '<data>Hello Katalon</data>')
+WebUI.maximizeWindow()
 
-CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.addDataIntoInternalDataFile'(GlobalVariable.TEST_DATAFILE_NAME, 
-    '<data>Hello Katalon</data>', FailureHandling.STOP_ON_FAILURE)
+WebUI.navigateToUrl('https://katalon-demo-cura.herokuapp.com/')
+
+WebUI.click(findTestObject('Object Repository/OR Web/i_CURA Healthcare_fa fa-bars'))
+
+WebUI.click(findTestObject('Object Repository/OR Web/a_Login'))
+
+WebUI.verifyElementText(findTestObject('Object Repository/OR Web/p_Please login to make appointment'), 'Please login to make appointment.')
+
+
+WebUI.comment('username: ' + username)
+
+WebUI.setText(findTestObject('Object Repository/OR Web/input_Username_username'), username)
+
+WebUI.setText(findTestObject('Object Repository/OR Web/input_Password_password'), password)
+
+WebUI.closeBrowser()
 

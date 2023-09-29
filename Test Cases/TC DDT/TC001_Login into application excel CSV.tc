@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC001_Login into application excel CSV</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>8b6114e6-3fc6-49f6-8bbd-84dc55a6f2d0</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>0dd24780-21b8-4db0-9fbc-cc282b797d41</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>084c0bc2-14f2-4db9-92f5-2ff0f00fd38f</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>'Default user'</defaultValue>
+      <description></description>
+      <id>0dd24780-21b8-4db0-9fbc-cc282b797d41</id>
+      <masked>false</masked>
+      <name>username</name>
+   </variable>
+   <variable>
+      <defaultValue>'Default pass'</defaultValue>
+      <description></description>
+      <id>084c0bc2-14f2-4db9-92f5-2ff0f00fd38f</id>
+      <masked>false</masked>
+      <name>password</name>
+   </variable>
+</TestCaseEntity>

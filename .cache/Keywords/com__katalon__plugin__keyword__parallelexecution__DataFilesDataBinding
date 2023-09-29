@@ -1,5 +1,5 @@
 {
-  "keywordFileContentHash": "7A38F331F4EB29BEFFBC9AA8F0BC87D5",
+  "keywordFileContentHash": "F8E022BC5FFF45A18DD3CDC6A86A3727",
   "keywordClasses": [
     {
       "name": "com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding",
@@ -90,6 +90,38 @@
               "type": {
                 "fullClassName": "com.kms.katalon.core.model.FailureHandling",
                 "unresolvedClassName": "FailureHandling",
+                "isArray": false,
+                "isGnericsPlaceHolder": false,
+                "hasImmutableClassName": false,
+                "genericsTypes": [],
+                "errorOnParsing": false
+              }
+            }
+          ],
+          "javadoc": ""
+        },
+        {
+          "name": "excelRowCount",
+          "parameters": [
+            {
+              "name": "filePath",
+              "initialExpression": "",
+              "type": {
+                "fullClassName": "java.lang.String",
+                "unresolvedClassName": "String",
+                "isArray": false,
+                "isGnericsPlaceHolder": false,
+                "hasImmutableClassName": false,
+                "genericsTypes": [],
+                "errorOnParsing": false
+              }
+            },
+            {
+              "name": "sheetName",
+              "initialExpression": "",
+              "type": {
+                "fullClassName": "java.lang.String",
+                "unresolvedClassName": "String",
                 "isArray": false,
                 "isGnericsPlaceHolder": false,
                 "hasImmutableClassName": false,

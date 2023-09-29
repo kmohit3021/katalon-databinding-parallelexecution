@@ -22,5 +22,15 @@ not_run: CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesD
 not_run: CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.addDataIntoInternalDataFile'(
     GlobalVariable.TEST_DATAFILE_NAME, '<data>Hello MohitSharma</data>', FailureHandling.CONTINUE_ON_FAILURE)
 
-CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.buildDataBindingParallelExecution'(GlobalVariable.TEST_SUITE_COLLECTION_NAME)
+not_run: CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.buildDataBindingParallelExecution'(
+	GlobalVariable.TEST_SUITE_COLLECTION_NAME)
 
+
+not_run: CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.buildDataBindingParallelExecution'(
+	'Test Suites/TS DDT/Test Suite Collection 001')
+
+//CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.excelRowCount'('/Users/mohit/git/katalon-databinding-parallelexecution/TestData/ExcelData.xlsx', 'login')
+not_run: CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.buildDataBindingParallelExecution'(
+	'Test Suites/TS DDT/Test Suite Collection 002 Excel')
+
+CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.buildDataBindingParallelExecution'('Test Suites/TS DDT/Test Suite Collection 003 CSV')

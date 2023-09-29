@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuiteEntity>
+   <description></description>
+   <name>DDT_TS002_Excel</name>
+   <tag></tag>
+   <isRerun>false</isRerun>
+   <mailRecipient></mailRecipient>
+   <numberOfRerun>0</numberOfRerun>
+   <pageLoadTimeout>30</pageLoadTimeout>
+   <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
+   <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
+   <rerunImmediately>true</rerunImmediately>
+   <testSuiteGuid>dde72ba4-5643-4d73-ab6b-e1b57b07c214</testSuiteGuid>
+   <testCaseLink>
+      <guid>d171d0cb-e3b3-4e8e-8187-89a354a01f52</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/TC DDT/TC001_Login into application excel</testCaseId>
+      <testDataLink>
+         <combinationType>ONE</combinationType>
+         <id>e6d3fc15-33d2-410b-9366-d29b6f5efd18</id>
+         <iterationEntity>
+            <iterationType>RANGE</iterationType>
+            <value>1-4</value>
+         </iterationEntity>
+         <testDataId>Data Files/DF002</testDataId>
+      </testDataLink>
+      <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
+      <variableLink>
+         <testDataLinkId>e6d3fc15-33d2-410b-9366-d29b6f5efd18</testDataLinkId>
+         <type>DATA_COLUMN</type>
+         <value>username</value>
+         <variableId>88dcc304-555e-4aea-aa3a-c78ec62f00ce</variableId>
+      </variableLink>
+      <variableLink>
+         <testDataLinkId>e6d3fc15-33d2-410b-9366-d29b6f5efd18</testDataLinkId>
+         <type>DATA_COLUMN</type>
+         <value>password</value>
+         <variableId>f02fc46d-b14c-4c5e-8397-da16f50097bf</variableId>
+      </variableLink>
+   </testCaseLink>
+</TestSuiteEntity>

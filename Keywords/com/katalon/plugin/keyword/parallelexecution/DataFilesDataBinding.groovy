@@ -18,11 +18,20 @@ import com.kms.katalon.core.logging.KeywordLogger;
 import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.testobject.ObjectRepository
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class DataFilesDataBinding {
 
 	private KeywordLogger logger = KeywordLogger.getInstance(ObjectRepository.class);
 	String strProjectPath = RunConfiguration.getProjectDir()
+
 
 	@Keyword
 	public void buildDataBindingParallelExecution(String testsuitecollectionpath) {
@@ -42,9 +51,32 @@ public class DataFilesDataBinding {
 
 		String testDataId = getValueBetweenXmlTags(((strProjectPath + '/') + testSuiteEntity) + '.ts', 'testDataId')
 
+		String strDriver = getValueBetweenXmlTags(((strProjectPath + '/') + testDataId) + '.dat', 'driver')
 
-		String rowcount = countXmlTagsInFile(((strProjectPath + '/') + testDataId) + '.dat', 'data')
-
+		String rowcount;
+		if (strDriver=="InternalData") {
+			rowcount = countXmlTagsInFile(((strProjectPath + '/') + testDataId) + '.dat', 'data')
+		}else if((strDriver=="ExcelFile")) {
+			String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + testDataId) + '.dat', 'dataSourceUrl')
+			String strsheetName = getValueBetweenXmlTags(((strProjectPath + '/') + testDataId) + '.dat', 'sheetName')
+			String filename = strProjectPath +'/' + strdataSourceUrl;
+			logger.logDebug("filename: "+filename)
+			rowcount = excelRowCount(filename, strsheetName)
+		}
+		else if((strDriver=="CSV")) {
+			String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + testDataId) + '.dat', 'dataSourceUrl')
+			String filename = strProjectPath +'/' + strdataSourceUrl;
+			logger.logDebug("filename: "+filename)
+			rowcount = csvRowCount(filename)
+		}
+		else if((strDriver=="DBData")) {
+			String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + testDataId) + '.dat', 'query')
+			/*
+			 * user need to connect with database to get the total no of rows in db.
+			 */
+		}else{
+			logger.logDebug("Not supported Data File Type")
+		}
 
 		List<String> lstDuplicateFiles
 
@@ -303,13 +335,22 @@ public class DataFilesDataBinding {
 	 */
 
 	//@Keyword
-	public void updateValuesBetweenTags(List<String> lstDuplicateFiles, List<String> lstIterationTypeValue, String maxCount) {
+	public void updateValuesBetweenTags(List<String> lstDuplicateFiles, List<String> lstIterationTypeValue, Object maxCount) {
 		int iterationCount = Integer.parseInt(maxCount);
 		int j=0;
+		String typeValue=null
 		for(int i=0;i<iterationCount;i++) {
 			try {
+				if (lstIterationTypeValue.get(i+j+1) instanceof Integer) {
+					typeValue = Integer.toString(lstIterationTypeValue.get(i+j+1));
+				}
+				else if (lstIterationTypeValue.get(i+j+1) instanceof String) {
+					typeValue = (String) lstIterationTypeValue.get(i+j+1);
+				} else {
+					logger.logDebug("Unsupported data type");
+				}
 				updateFirstValueTag(lstDuplicateFiles.get(i), "iterationType", lstIterationTypeValue.get(i+j));
-				updateFirstValueTag(lstDuplicateFiles.get(i), "value", lstIterationTypeValue.get(i+j+1));
+				updateFirstValueTag(lstDuplicateFiles.get(i), "value", typeValue);
 				logger.logDebug("File updated successfully.")
 				j=j+1;
 			} catch (IOException e) {
@@ -501,6 +542,45 @@ public class DataFilesDataBinding {
 		}
 
 		return lstIterationTypeValue
+	}
+
+	@Keyword
+	public int excelRowCount(String filePath, String sheetName) {
+
+		try {
+			FileInputStream fis = new FileInputStream(filePath);
+			Workbook workbook = WorkbookFactory.create(fis);
+
+			// Get the sheet by name
+			Sheet sheet = workbook.getSheet(sheetName);
+
+			if (sheet != null) {
+				int  rowCount = sheet.getLastRowNum(); // Plus 1 to account for 0-based indexing
+				return rowCount;
+
+			} else {
+				System.err.println("Sheet '" + sheetName + "' not found.");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int csvRowCount(String filePath) {
+
+		int rowCount = 0;
+
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(filePath))
+			String line;
+			while (br.readLine() != null) {
+				rowCount++;
+			}
+			return rowCount-1;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
