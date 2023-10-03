@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuiteEntity>
+   <description></description>
+   <name>DDT_TS004_ALL</name>
+   <tag></tag>
+   <isRerun>false</isRerun>
+   <mailRecipient></mailRecipient>
+   <numberOfRerun>3</numberOfRerun>
+   <pageLoadTimeout>30</pageLoadTimeout>
+   <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
+   <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
+   <rerunImmediately>true</rerunImmediately>
+   <testSuiteGuid>11e03e48-bb36-4c38-8197-753140d05c99</testSuiteGuid>
+   <testCaseLink>
+      <guid>62c11a55-8f72-4a94-a2b1-6960a6136203</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/TC DDT/TC001_Login into application</testCaseId>
+      <testDataLink>
+         <combinationType>ONE</combinationType>
+         <id>80c81b4a-244b-443a-9c2e-3cc5a6164895</id>
+         <iterationEntity>
+            <iterationType>RANGE</iterationType>
+            <value>1-4</value>
+         </iterationEntity>
+         <testDataId>Data Files/DF001</testDataId>
+      </testDataLink>
+      <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
+      <variableLink>
+         <testDataLinkId>80c81b4a-244b-443a-9c2e-3cc5a6164895</testDataLinkId>
+         <type>DATA_COLUMN</type>
+         <value>username</value>
+         <variableId>b4d21820-4d77-42e0-9155-f1525c674432</variableId>
+      </variableLink>
+      <variableLink>
+         <testDataLinkId>80c81b4a-244b-443a-9c2e-3cc5a6164895</testDataLinkId>
+         <type>DATA_COLUMN</type>
+         <value>password</value>
+         <variableId>38b97ff2-e6e1-4e2b-936d-c71f8da350de</variableId>
+      </variableLink>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>dd6ab305-5c19-434e-a410-d2aa0285a7c2</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/TC DDT/TC002_Login into application excel</testCaseId>
+      <testDataLink>
+         <combinationType>ONE</combinationType>
+         <id>a30d36c9-458a-4b77-ba8c-67840e93c4f8</id>
+         <iterationEntity>
+            <iterationType>RANGE</iterationType>
+            <value>1-2</value>
+         </iterationEntity>
+         <testDataId>Data Files/DF002</testDataId>
+      </testDataLink>
+      <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
+      <variableLink>
+         <testDataLinkId>a30d36c9-458a-4b77-ba8c-67840e93c4f8</testDataLinkId>
+         <type>DATA_COLUMN</type>
+         <value>username</value>
+         <variableId>88dcc304-555e-4aea-aa3a-c78ec62f00ce</variableId>
+      </variableLink>
+      <variableLink>
+         <testDataLinkId>a30d36c9-458a-4b77-ba8c-67840e93c4f8</testDataLinkId>
+         <type>DATA_COLUMN</type>
+         <value>password</value>
+         <variableId>f02fc46d-b14c-4c5e-8397-da16f50097bf</variableId>
+      </variableLink>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>fa354eb2-7c4e-40c6-b802-0414591f9b3d</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/TC DDT/TC003_Login into application CSV</testCaseId>
+      <testDataLink>
+         <combinationType>ONE</combinationType>
+         <id>98a2c82e-678b-4ef6-8b04-484688fc3ed3</id>
+         <iterationEntity>
+            <iterationType>RANGE</iterationType>
+            <value>1-3</value>
+         </iterationEntity>
+         <testDataId>Data Files/DF003</testDataId>
+      </testDataLink>
+      <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
+      <variableLink>
+         <testDataLinkId>98a2c82e-678b-4ef6-8b04-484688fc3ed3</testDataLinkId>
+         <type>DATA_COLUMN</type>
+         <value>username</value>
+         <variableId>0dd24780-21b8-4db0-9fbc-cc282b797d41</variableId>
+      </variableLink>
+      <variableLink>
+         <testDataLinkId>98a2c82e-678b-4ef6-8b04-484688fc3ed3</testDataLinkId>
+         <type>DATA_COLUMN</type>
+         <value>password</value>
+         <variableId>084c0bc2-14f2-4db9-92f5-2ff0f00fd38f</variableId>
+      </variableLink>
+   </testCaseLink>
+</TestSuiteEntity>

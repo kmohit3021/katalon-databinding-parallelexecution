@@ -10,6 +10,8 @@
    <dataSourceUrl></dataSourceUrl>
    <driver>InternalData</driver>
    <data>Katalonuser1 Katalonpass1</data>
+<data>Hello Katalon</data>
+<data>Hello Katalon</data>
    <data>Katalonuser2 Katalonpass2</data>
    <data>Katalonuser3 Katalonpass3</data>
    <data>Katalonuser4 Katalonpass4</data>

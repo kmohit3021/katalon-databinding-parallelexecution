@@ -1,0 +1,10 @@
+{
+  "keywordFileContentHash": "4721992AD073A2EBDED928D9A15D4A56",
+  "keywordClasses": [
+    {
+      "name": "com.katalon.plugin.keyword.databinding.ParallelExecution",
+      "keywordMethods": []
+    }
+  ],
+  "javadocParsed": true
+}

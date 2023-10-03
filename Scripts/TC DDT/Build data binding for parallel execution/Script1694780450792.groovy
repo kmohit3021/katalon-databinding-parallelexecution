@@ -22,32 +22,32 @@ String strProjectPath = RunConfiguration.getProjectDir()
 
 String strTestSuiteCollectionPath = ('/' + GlobalVariable.TEST_SUITE_COLLECTION_NAME) + '.ts'
 
-CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.cleanExistingSetup'(strProjectPath + strTestSuiteCollectionPath)
+CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.cleanExistingSetup'(strProjectPath + strTestSuiteCollectionPath)
 
-String executionMode = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.getValueBetweenXmlTags'(strProjectPath + 
+String executionMode = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.getValueBetweenXmlTags'(strProjectPath + 
     strTestSuiteCollectionPath, 'executionMode')
 
 println('executionMode-----\n' + executionMode)
 
-String maxConcurrentInstances = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.getValueBetweenXmlTags'(strProjectPath + 
+String maxConcurrentInstances = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.getValueBetweenXmlTags'(strProjectPath + 
     strTestSuiteCollectionPath, 'maxConcurrentInstances')
 
 println('maxConcurrentInstances-----\n' + maxConcurrentInstances)
 
-String testSuiteEntity = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.getValueBetweenXmlTags'(strProjectPath + 
+String testSuiteEntity = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.getValueBetweenXmlTags'(strProjectPath + 
     strTestSuiteCollectionPath, 'testSuiteEntity')
 
 println('testSuiteEntity-----\n' + testSuiteEntity)
 
-String testDataId = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.getValueBetweenXmlTags'(((strProjectPath + 
+String testDataId = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.getValueBetweenXmlTags'(((strProjectPath + 
     '/') + testSuiteEntity) + '.ts', 'testDataId')
 
 println('testDataId-----\n' + testDataId)
 
-CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.addNewDataIntoXMLFile'(((strProjectPath + '/') + testDataId) + 
+CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.addNewDataIntoXMLFile'(((strProjectPath + '/') + testDataId) + 
     '.dat', '</data>', '<data>HelloMr MohitSharma</data>')
 
-String rowcount = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.countXmlTagsInFile'(((strProjectPath + '/') + 
+String rowcount = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.countXmlTagsInFile'(((strProjectPath + '/') + 
     testDataId) + '.dat', 'data')
 
 println('rowcount-----\n' + rowcount)
@@ -55,24 +55,24 @@ println('rowcount-----\n' + rowcount)
 List<String> lstDuplicateFiles
 
 if (Integer.parseInt(rowcount) < Integer.parseInt(maxConcurrentInstances)) {
-    lstDuplicateFiles = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.createMultipalFiles'(((strProjectPath + 
+    lstDuplicateFiles = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.createMultipalFiles'(((strProjectPath + 
         '/') + testSuiteEntity) + '.ts', Integer.parseInt(rowcount))
 } else {
-    lstDuplicateFiles = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.createMultipalFiles'(((strProjectPath + 
+    lstDuplicateFiles = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.createMultipalFiles'(((strProjectPath + 
         '/') + testSuiteEntity) + '.ts', Integer.parseInt(maxConcurrentInstances))
 }
 
 println('Test Suite for Parallel Exection----- \n' + lstDuplicateFiles)
 
-List<String> lstIterationTypeValue = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.generateIiterationTypeAndValue'(
+List<String> lstIterationTypeValue = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.generateIiterationTypeAndValue'(
     rowcount, maxConcurrentInstances)
 
 println('lstIterationTypeValue---- \n' + lstIterationTypeValue)
 
-CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.updateValuesBetweenTags'(lstDuplicateFiles, lstIterationTypeValue, 
+CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.updateValuesBetweenTags'(lstDuplicateFiles, lstIterationTypeValue, 
     Integer.toString(lstDuplicateFiles.size()))
 
-List<String> resultList = CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.extractTestSuiteFromContent'(
+List<String> resultList = CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.extractTestSuiteFromContent'(
     lstDuplicateFiles)
 
 println('resultList---- \n' + resultList)
@@ -100,6 +100,6 @@ for (int i = 1; i < resultList.size(); i++) {
 
 println('After content----' + content)
 
-CustomKeywords.'com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding.addNewDataIntoXMLFile'(strProjectPath + strTestSuiteCollectionPath, 
+CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.addNewDataIntoXMLFile'(strProjectPath + strTestSuiteCollectionPath, 
     '</TestSuiteRunConfiguration>', content)
 

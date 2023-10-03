@@ -7,7 +7,7 @@
    <containsHeaders>true</containsHeaders>
    <csvSeperator>COMMA</csvSeperator>
    <dataFileGUID>74de06fe-6a93-4b0b-bfb1-101838f28070</dataFileGUID>
-   <dataSourceUrl>TestData/ExcelDataCSV.csv</dataSourceUrl>
+   <dataSourceUrl>TestData/CSVData.csv</dataSourceUrl>
    <driver>CSV</driver>
    <isInternalPath>true</isInternalPath>
    <query></query>

@@ -1,4 +1,5 @@
-## katalon >> Test Suite Data binding(10 rows) >> parallel execution(3Thread) with 1-3, 4-6. & 7-10 rows
+## Data Binding Test Suite Parallel Execution
+## Exp: katalon >> Test Suite Data binding(10 rows) >> parallel execution(3Thread) with 1-3, 4-6. & 7-10 rows
 
 We want to introduce you to a powerful solution that streamlines parallel execution with test suite data binding in Katalon Studio. This feature allows you to run the same test suite with multiple sets of data concurrently, ultimately saving you a significant amount of time during your testing process.
 

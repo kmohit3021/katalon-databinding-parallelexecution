@@ -1,8 +1,8 @@
 {
-  "keywordFileContentHash": "DA4E4EC05EB92D431DA7E681FFCAFB8B",
+  "keywordFileContentHash": "0471F7B37BED24C199A22F8AAD0C12D2",
   "keywordClasses": [
     {
-      "name": "com.katalon.plugin.keyword.parallelexecution.DataFilesDataBinding",
+      "name": "com.katalon.plugin.keyword.databinding.ParallelExecution",
       "keywordMethods": [
         {
           "name": "buildTestSuiteParallelExecution",
