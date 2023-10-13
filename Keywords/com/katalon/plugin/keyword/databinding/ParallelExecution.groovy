@@ -24,13 +24,13 @@ public class ParallelExecution {
 	private KeywordLogger logger = KeywordLogger.getInstance(ObjectRepository.class);
 	String strProjectPath = RunConfiguration.getProjectDir()
 
-
-	//@Keyword
+	@Keyword
 	public void buildTestSuiteParallelExecution(String testsuitecollectionpath) {
 
 		String strTestSuiteCollectionPath = ('/' + testsuitecollectionpath) + '.ts'
 
 		cleanExistingSetup(strProjectPath + strTestSuiteCollectionPath)
+		deleteFilesWithSubstring(strProjectPath +'/Test Suites', '_New_')
 
 		String executionMode = getValueBetweenXmlTags(strProjectPath + strTestSuiteCollectionPath, 'executionMode')
 
@@ -38,101 +38,108 @@ public class ParallelExecution {
 		String maxConcurrentInstances = getValueBetweenXmlTags(strProjectPath + strTestSuiteCollectionPath, 'maxConcurrentInstances')
 
 
-		String testSuiteEntity = getValueBetweenXmlTags(strProjectPath + strTestSuiteCollectionPath, 'testSuiteEntity')
+		List<String> testSuiteEntity = extractAllValuesBetweenTag(strProjectPath + strTestSuiteCollectionPath, 'testSuiteEntity')
+
+		List<String> runrunConfigurationId = extractAllValuesBetweenTag(strProjectPath + strTestSuiteCollectionPath, 'runConfigurationId')
+
+		List<String> profileName = extractAllValuesBetweenTag(strProjectPath + strTestSuiteCollectionPath, 'profileName')
+
+		for(int index=0;index < testSuiteEntity.size(); index++) {
 
 
-		List<String> lstCaseEntity = extractAllValuesBetweenTag(((strProjectPath + '/') + testSuiteEntity) + '.ts', 'testCaseId')
-		List<String> lstDataId = extractAllValuesBetweenTag(((strProjectPath + '/') + testSuiteEntity) + '.ts', 'testDataId')
+			List<String> lstCaseEntity = extractAllValuesBetweenTag(((strProjectPath + '/') + testSuiteEntity.get(index)) + '.ts', 'testCaseId')
+			List<String> lstDataId = extractAllValuesBetweenTag(((strProjectPath + '/') + testSuiteEntity.get(index)) + '.ts', 'testDataId')
 
-		List<String> lstRowcount = new ArrayList<>()
-		int minRowCount=1
-		int rowCount
-		for(int i=0;i<lstDataId.size();i++) {
-			String strDriver = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'driver')
+			List<String> lstRowcount = new ArrayList<>()
+			int minRowCount=1
+			int rowCount
+			for(int i=0;i<lstDataId.size();i++) {
+				String strDriver = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'driver')
 
-			if (strDriver=="InternalData") {
-				rowCount = countXmlTagsInFile(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'data')
-				if(rowCount > minRowCount){
-					minRowCount=rowCount
-				}else{
-					minRowCount=rowCount
+				if (strDriver=="InternalData") {
+					rowCount = countXmlTagsInFile(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'data')
+					if(rowCount > minRowCount){
+						minRowCount=rowCount
+					}else{
+						minRowCount=rowCount
+					}
+					lstRowcount.add(rowCount)
+				}else if((strDriver=="ExcelFile")) {
+					String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'dataSourceUrl')
+					String strsheetName = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'sheetName')
+					String filename = strProjectPath +'/' + strdataSourceUrl;
+					logger.logDebug("filename: "+filename)
+					rowCount = excelRowCount(filename, strsheetName)
+					if(rowCount > minRowCount){
+						minRowCount=rowCount
+					}else{
+						minRowCount=rowCount
+					}
+
+					lstRowcount.add(rowCount)
 				}
-				lstRowcount.add(rowCount)
-			}else if((strDriver=="ExcelFile")) {
-				String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'dataSourceUrl')
-				String strsheetName = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'sheetName')
-				String filename = strProjectPath +'/' + strdataSourceUrl;
-				logger.logDebug("filename: "+filename)
-				rowCount = excelRowCount(filename, strsheetName)
-				if(rowCount > minRowCount){
-					minRowCount=rowCount
-				}else{
-					minRowCount=rowCount
+				else if((strDriver=="CSV")) {
+					String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'dataSourceUrl')
+					String filename = strProjectPath +'/' + strdataSourceUrl;
+					logger.logDebug("filename: "+filename)
+					rowCount = csvRowCount(filename)
+					if(rowCount > minRowCount){
+						minRowCount=rowCount
+					}else{
+						minRowCount=rowCount
+					}
+					lstRowcount.add(rowCount)
 				}
-
-				lstRowcount.add(rowCount)
-			}
-			else if((strDriver=="CSV")) {
-				String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'dataSourceUrl')
-				String filename = strProjectPath +'/' + strdataSourceUrl;
-				logger.logDebug("filename: "+filename)
-				rowCount = csvRowCount(filename)
-				if(rowCount > minRowCount){
-					minRowCount=rowCount
+				else if((strDriver=="DBData")) {
+					String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'query')
+					/*
+					 * user need to connect with database to get the total no of rows in db.
+					 */
 				}else{
-					minRowCount=rowCount
+					logger.logDebug("Not supported Data File Type")
 				}
-				lstRowcount.add(rowCount)
 			}
-			else if((strDriver=="DBData")) {
-				String strdataSourceUrl = getValueBetweenXmlTags(((strProjectPath + '/') + lstDataId.get(i)) + '.dat', 'query')
-				/*
-				 * user need to connect with database to get the total no of rows in db.
-				 */
-			}else{
-				logger.logDebug("Not supported Data File Type")
-			}
-		}
 
-		List<String> lstDuplicateFiles
+			List<String> lstDuplicateFiles
 
-		if (minRowCount < Integer.parseInt(maxConcurrentInstances)) {
-			lstDuplicateFiles = createMultipalFiles(((strProjectPath + '/') + testSuiteEntity) + '.ts', minRowCount)
-		} else {
-			lstDuplicateFiles = createMultipalFiles(((strProjectPath + '/') + testSuiteEntity) + '.ts', Integer.parseInt(maxConcurrentInstances))
-		}
-
-		//nested list
-		List<List<String>> lstIterationTypeValue = generateIiterationTypeAndValue(lstRowcount, maxConcurrentInstances)
-
-		updateValuesBetweenTags(lstDuplicateFiles, lstCaseEntity, lstIterationTypeValue, Integer.toString(lstDuplicateFiles.size()))
-
-		List<String> resultList = extractTestSuiteFromContent(lstDuplicateFiles)
-
-
-		String content = ''
-
-		String baseContent = ''
-
-		for (int i = 1; i < resultList.size(); i++) {
-			if ((i + 1) == resultList.size()) {
-				baseContent = (('<TestSuiteRunConfiguration>\n<configuration>\n<groupName>Web Desktop</groupName>\n<profileName>default</profileName>\n<requireConfigurationData>false</requireConfigurationData>\n<runConfigurationId>Chrome</runConfigurationId>\n</configuration>\n<runEnabled>true</runEnabled>\n<testSuiteEntity>' +
-						resultList.get(i)) + '</testSuiteEntity>\n</TestSuiteRunConfiguration>')
+			if (minRowCount < Integer.parseInt(maxConcurrentInstances)) {
+				lstDuplicateFiles = createMultipalFiles(((strProjectPath + '/') + testSuiteEntity.get(index)) + '.ts', minRowCount)
 			} else {
-				baseContent = (('<TestSuiteRunConfiguration>\n<configuration>\n<groupName>Web Desktop</groupName>\n<profileName>default</profileName>\n<requireConfigurationData>false</requireConfigurationData>\n<runConfigurationId>Chrome</runConfigurationId>\n</configuration>\n<runEnabled>true</runEnabled>\n<testSuiteEntity>' +
-						resultList.get(i)) + '</testSuiteEntity>\n</TestSuiteRunConfiguration>\n')
+				lstDuplicateFiles = createMultipalFiles(((strProjectPath + '/') + testSuiteEntity.get(index)) + '.ts', Integer.parseInt(maxConcurrentInstances))
 			}
 
-			content == baseContent
+			//nested list
+			List<List<String>> lstIterationTypeValue = generateIiterationTypeAndValue(lstRowcount, maxConcurrentInstances)
 
-			content = (content + baseContent)
+			updateValuesBetweenTags(lstDuplicateFiles, lstCaseEntity, lstIterationTypeValue, Integer.toString(lstDuplicateFiles.size()))
+
+			List<String> resultList = extractTestSuiteFromContent(lstDuplicateFiles)
+
+
+			String content = ''
+
+			String baseContent = ''
+
+			for (int i = 1; i < resultList.size(); i++) {
+				if ((i + 1) == resultList.size()) {
+					baseContent = (('<TestSuiteRunConfiguration>\n<configuration>\n<groupName>Web Desktop</groupName>\n<profileName>'+profileName.get(index)+'</profileName>\n<requireConfigurationData>false</requireConfigurationData>\n<runConfigurationId>'+runrunConfigurationId.get(index)+'</runConfigurationId>\n</configuration>\n<runEnabled>true</runEnabled>\n<testSuiteEntity>' +
+							resultList.get(i)) + '</testSuiteEntity>\n</TestSuiteRunConfiguration>')
+				} else {
+					baseContent = (('<TestSuiteRunConfiguration>\n<configuration>\n<groupName>Web Desktop</groupName>\n<profileName>'+profileName.get(index)+'</profileName>\n<requireConfigurationData>false</requireConfigurationData>\n<runConfigurationId>'+runrunConfigurationId.get(index)+'</runConfigurationId>\n</configuration>\n<runEnabled>true</runEnabled>\n<testSuiteEntity>' +
+							resultList.get(i)) + '</testSuiteEntity>\n</TestSuiteRunConfiguration>\n')
+				}
+
+				content == baseContent
+
+				content = (content + baseContent)
+			}
+
+			addNewDataIntoXMLFile(strProjectPath + strTestSuiteCollectionPath,'</TestSuiteRunConfiguration>', content)
 		}
-
-		addNewDataIntoXMLFile(strProjectPath + strTestSuiteCollectionPath,'</TestSuiteRunConfiguration>', content)
 
 	}
 
-	//@Keyword
+	@Keyword
 	public void updateInternalDataFile(String strTestSuiteCollectionPath, String dataset) {
 		String strTestSuiteCollection = ('/' + strTestSuiteCollectionPath) + '.ts'
 		String testSuiteEntity = getValueBetweenXmlTags(strProjectPath + strTestSuiteCollection, 'testSuiteEntity')
@@ -140,7 +147,7 @@ public class ParallelExecution {
 		addNewDataIntoXMLFile(((strProjectPath + '/') + testDataId) + '.dat', '</data>', dataset)
 	}
 
-	//@Keyword
+	@Keyword
 	public void updateInternalDataFile(String strDataFilePath, String dataset, FailureHandling flowControl) {
 		addNewDataIntoXMLFile(((strProjectPath + '/') + strDataFilePath) + '.dat', '</data>', dataset)
 	}
@@ -515,10 +522,53 @@ public class ParallelExecution {
 	/*
 	 * This function is responsible to remove existing content from the test suite collect file
 	 */
-
-	public void cleanExistingSetup(String filePathTSC)
+	public void cleanExistingSetup(String strTestSuiteCollectionPath)
 	{
-		deleteContentbetweenTags(filePathTSC);
+		List<String> testSuiteEntity = extractAllValuesBetweenTag(strTestSuiteCollectionPath, 'testSuiteEntity')
+		List<String> profileName = extractAllValuesBetweenTag(strTestSuiteCollectionPath, 'profileName')
+		List<String> runrunConfigurationId = extractAllValuesBetweenTag(strTestSuiteCollectionPath, 'runConfigurationId')
+
+		for(int index=0; index < testSuiteEntity.size(); index++) {
+			if(testSuiteEntity.get(index).contains("_New_"))
+			{
+				try {
+					String xmlContent = readFile(strTestSuiteCollectionPath);
+					String modifiedContent = removeContentBetweenTags(xmlContent, testSuiteEntity.get(index), profileName.get(index), runrunConfigurationId.get(index))
+					writeToFile(strTestSuiteCollectionPath, modifiedContent);
+					logger.logDebug("Content removed from XML file successfully.");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else
+			{
+				logger.logDebug("Not Clean for Parent Suite")
+			}
+		}
+	}
+
+
+	public String readFile(String filePath) throws IOException {
+		StringBuilder content = new StringBuilder();
+		BufferedReader reader = new BufferedReader(new FileReader(filePath));
+		String line;
+		while ((line = reader.readLine()) != null) {
+			content.append(line).append("\n");
+		}
+		reader.close();
+		return content.toString();
+	}
+
+	public void writeToFile(String filePath, String content) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+		writer.write(content);
+		writer.close();
+	}
+
+	public String removeContentBetweenTags(String xmlContent, String strTestSuiteName, String strProfileName, String strBrowserName) {
+		String pattern = "<TestSuiteRunConfiguration>\\s*<configuration>\\s*<groupName>Web Desktop</groupName>\\s*<profileName>"+strProfileName+"</profileName>\\s*<requireConfigurationData>false</requireConfigurationData>\\s*<runConfigurationId>"+strBrowserName+"</runConfigurationId>\\s*</configuration>\\s*<runEnabled>true</runEnabled>\\s*<testSuiteEntity>"+strTestSuiteName+"</testSuiteEntity>\\s*</TestSuiteRunConfiguration>";
+		Pattern regex = Pattern.compile(pattern, Pattern.DOTALL);
+		Matcher matcher = regex.matcher(xmlContent);
+		return matcher.replaceAll("");
 	}
 
 	public void deleteContentbetweenTags(String filePath) {
@@ -666,6 +716,29 @@ public class ParallelExecution {
 			e.printStackTrace();
 		}
 		return values;
+	}
+
+	public void deleteFilesWithSubstring(String folderPath, String substringToDelete) {
+		File folder = new File(folderPath);
+
+		if (folder.exists() && folder.isDirectory()) {
+			File[] files = folder.listFiles();
+
+			if (files != null) {
+				for (File file : files) {
+					if (file.isFile() && file.getName().contains(substringToDelete)) {
+						if (file.delete()) {
+							logger.logDebug("Deleted file: " + file.getAbsolutePath());
+						} else {
+							logger.logDebug("Failed to delete file: " + file.getAbsolutePath());
+						}
+					} else if (file.isDirectory()) {
+						// Recursive call to handle subdirectories
+						deleteFilesWithSubstring(file.getAbsolutePath(), substringToDelete);
+					}
+				}
+			}
+		}
 	}
 
 }

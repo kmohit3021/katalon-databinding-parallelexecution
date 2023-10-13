@@ -20,8 +20,8 @@
          <combinationType>ONE</combinationType>
          <id>f75b0af0-a03c-4c43-8f30-6eb6938b72cb</id>
          <iterationEntity>
-            <iterationType>ALL</iterationType>
-            <value></value>
+            <iterationType>RANGE</iterationType>
+            <value>1-2</value>
          </iterationEntity>
          <testDataId>Data Files/DF002</testDataId>
       </testDataLink>

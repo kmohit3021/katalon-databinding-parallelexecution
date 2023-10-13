@@ -26,12 +26,12 @@ not_run: CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecutio
 
 not_run: CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.buildTestSuiteParallelExecution'('Test Suites/TS DDT/Test Suite Collection 001')
 
-CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.updateInternalDataFile'('Test Suites/TS DDT/TSC001', 
+not_run: CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.updateInternalDataFile'('Test Suites/TS DDT/TSC001', 
     '<data>Hello Katalon</data>')
 
 //CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.excelRowCount'('/Users/mohit/git/katalon-databinding-parallelexecution/TestData/ExcelData.xlsx', 'login')
-CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.buildTestSuiteParallelExecution'('Test Suites/TS DDT/TSC001')
-
+//CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.buildTestSuiteParallelExecution22'('Test Suites/TS DDT/TSC002')
 not_run: CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.buildTestSuiteParallelExecution'('Test Suites/TS DDT/Test Suite Collection 003 CSV')
 
+CustomKeywords.'com.katalon.plugin.keyword.databinding.ParallelExecution.buildTestSuiteParallelExecution'('Test Suites/TS DDT/TSC001')
 

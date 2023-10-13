@@ -21,7 +21,7 @@
          <id>80c81b4a-244b-443a-9c2e-3cc5a6164895</id>
          <iterationEntity>
             <iterationType>RANGE</iterationType>
-            <value>1-4</value>
+            <value>1-5</value>
          </iterationEntity>
          <testDataId>Data Files/DF001</testDataId>
       </testDataLink>
